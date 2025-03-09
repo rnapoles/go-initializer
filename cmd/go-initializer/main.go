@@ -435,6 +435,10 @@ go.work
 # Dependency directories
 vendor/
 
+# IDEs
+.idea/
+.vscode/
+
 # Environment files
 .env
 .env.local

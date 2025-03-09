@@ -15,5 +15,7 @@
 go.work 
  
 # Dependency directories 
-vendor/ 
-/.idea
+vendor/
+
+# IDEs
+.idea/
