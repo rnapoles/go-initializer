@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 	"strings"
 )
 
@@ -20,6 +21,7 @@ type ProjectInitializer struct {
 }
 
 func main() {
+
 	// Check for project name argument
 	if len(os.Args) < 2 {
 		fmt.Println("Error: Please provide a project name.")
@@ -366,6 +368,8 @@ func main() {
 func (p *ProjectInitializer) createReadmeFile() {
 	fmt.Println("Creating README.md...")
 
+	version := runtime.Version()
+
 	restApiContent := ""
 	if p.IsRestAPI {
 		restApiContent = `
@@ -391,7 +395,7 @@ A Go project created with go-init.%s
 
 ### Prerequisites
 
-- Go 1.16 or higher
+- Go %s or higher
 
 ### Installation
 
@@ -404,7 +408,7 @@ go get %s
 `+"```"+`bash
 go run cmd/%s/main.go
 `+"```"+`
-`, p.ProjectName, restApiContent, p.ModuleName, p.ProjectName)
+`, p.ProjectName, restApiContent, version, p.ModuleName, p.ProjectName)
 
 	if err := ioutil.WriteFile("README.md", []byte(content), 0644); err != nil {
 		fmt.Printf("Error creating README.md file: %v\n", err)
